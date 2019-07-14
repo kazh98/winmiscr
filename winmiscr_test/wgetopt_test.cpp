@@ -328,7 +328,8 @@ namespace winmiscr_test
 
 		TEST_METHOD(colon_as_option)
 		{
-			wchar_t* argv[] = { L"a.out", L"-:" };
+			wchar_t* argv[] = { L"a.out", L"-:a" };
+			bool flag_a = false;
 			bool flag_unknown = false;
 			wint_t ch;
 
@@ -336,6 +337,9 @@ namespace winmiscr_test
 			while ((ch = wgetopt(2, argv, L"abc:d:")) != WEOF) {
 				Assert::IsFalse(optreset);
 				switch (ch) {
+				case L'a':
+					flag_a = true;
+					break;
 				case L'?':
 					flag_unknown = true;
 					break;
@@ -344,6 +348,7 @@ namespace winmiscr_test
 				}
 			}
 			Assert::IsFalse(optreset);
+			Assert::IsTrue(flag_a);
 			Assert::IsTrue(flag_unknown);
 			Assert::AreEqual<size_t>(2, optind);
 		}

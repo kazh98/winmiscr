@@ -113,8 +113,8 @@ namespace winmiscr {
 					argv[i - 1] = tmp;
 				}
 				++optind;
-				p = nullptr;
 				++target;
+				p = nullptr;
 			}
 		}
 
